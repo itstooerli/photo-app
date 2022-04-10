@@ -1,0 +1,56 @@
+body * {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    display: grid;
+    grid-template-areas: "banner banner"
+                         "stories recs";
+}
+
+nav {
+    grid-area: banner;
+}
+
+section {
+    grid-area: stories;
+}
+
+aside {
+    grid-area: recs;
+}
+
+nav, nav * {
+    border: solid 1px black;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav h1 {
+    margin-left: 30px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin-right: 5px;
+    padding: 5px;
+    display: flex;
+}
+
+nav li {
+    margin: 5px;
+    /* padding: 10px; */
+}
+
+section, section * {
+    border: solid 1px black;
+}
+
+aside, aside * {
+    border: solid 1px black;
+}
