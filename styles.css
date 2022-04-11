@@ -26,10 +26,11 @@ a:active { text-decoration: none; }
     width: 100%;
     min-width: 300px;
     padding: 10px;
+    margin-top: 5px;
 }
 
 /* Define the rules for the left component of the header */
-.leftsection {
+.leftheader {
     flex: 1 0 127px;
     font-size: x-large;
     font-weight: bold;
@@ -37,12 +38,12 @@ a:active { text-decoration: none; }
 }
 
 /* Define a different color for the logo link */
-.leftsection a:link {
+.leftheader a:link {
     color: purple;
 }
 
 /* Define the size of the box for the items in the right component of the header */
-.rightsection {
+.rightheader {
     flex: 1 0 127px;
     justify-content: flex-end;
     align-items: center;
@@ -55,26 +56,111 @@ a:active { text-decoration: none; }
     width: max-content;
 }
 
-nav h1 {
-    margin-left: 30px;
-}
-
-nav ul {
-    list-style-type: none;
-    margin-right: 5px;
-    padding: 5px;
+.mainapp, .mainapp * {
+    border: solid 1px black;
     display: flex;
+    width: 100%;
 }
 
-nav li {
+.mainsection {
+    padding: 10px;
+    background-color: #fafafa;
+    width: 100%;
+}
+
+.leftapp {
+    max-width: 614px;
+    margin-right: 15px;
+
+    flex-direction: column;
+}
+
+ul {
+    padding-inline-start: 5px;
+}
+
+.astory {
+    flex-direction: column;
+    align-items: center;
+}
+
+.astorylist {
+    width: min-content;
+    margin: 10px;
+}
+
+.astoryname {
+    margin-top: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.astory img {
+    border: 5px solid lightgray;
+}
+
+.rightapp {
+    flex-direction: column;
+    padding: 5px;
+    width: 550px;
+    /* position: fixed; */
+    left: 675px;
+}
+
+.profilepic {
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+}
+
+.user {
+    align-items: center;
+    padding: 5px;
+}
+
+.user h1 {
     margin: 5px;
-    /* padding: 10px; */
+    width: min-content;
 }
 
-section, section * {
-    border: solid 1px black;
+.sugs {
+    flex-direction: column;
 }
 
-aside, aside * {
-    border: solid 1px black;
+.sugs > div {
+    padding: 5px;
+}
+
+.suggestionheader {
+    font-weight: bold;
+    font-size: large;
+    color: gray;
+}
+
+.asuggestion {
+    align-items: center;
+}
+
+.asuggestionmid {
+    margin-left: 5px;
+    flex-direction: column;
+    max-width: 200px;
+}
+
+.asuggestionname, .asfy {
+    padding: 2px;
+}
+
+.asuggestionname {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.asfy {
+    color: gray;
+}
+
+.follow {
+    width: min-content;
+    padding: 2px;
 }
