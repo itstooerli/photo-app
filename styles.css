@@ -23,15 +23,16 @@ a:active { text-decoration: none; }
 
 /* Define the outer padding of the navigation bar */
 .navigationbar {
+    position: fixed;
     width: 100%;
     min-width: 300px;
     padding: 10px;
-    margin-top: 5px;
+    background-color: white;
+    border-bottom: solid 1px black;
 }
 
 /* Define the rules for the left component of the header */
 .leftheader {
-    flex: 1 0 127px;
     font-size: x-large;
     font-weight: bold;
     align-items: center;
@@ -44,7 +45,6 @@ a:active { text-decoration: none; }
 
 /* Define the size of the box for the items in the right component of the header */
 .rightheader {
-    flex: 1 0 127px;
     justify-content: flex-end;
     align-items: center;
 }
@@ -56,24 +56,32 @@ a:active { text-decoration: none; }
     width: max-content;
 }
 
-.mainapp, .mainapp * {
+.mainapp * {
     border: solid 1px black;
     display: flex;
     width: 100%;
 }
 
+.mainapp {
+    /* display: flex; */
+    border: solid 1px black;
+    width: 100%;
+    margin-top: 75px;
+}
+
 .mainsection {
     padding: 10px;
-    background-color: #fafafa;
+    background-color: #f2f2f2;
     width: 100%;
-    justify-content: center;
 }
 
 .leftapp {
-    max-width: 800px;
+    /* max-width: 800px; */
     margin-right: 15px;
-
+    background-color: white;
+    width: 65%;
     flex-direction: column;
+    /* position: relative; */
 }
 
 ul {
@@ -116,8 +124,15 @@ ul {
 
 .cardimage {
     padding: 5px;
-    max-height: 500px;
+    /* max-height: 500px; */
 }
+
+/* .postpic {
+    display: block;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+} */
 
 .cardreacts {
     flex-direction: column;
@@ -201,8 +216,10 @@ ul {
     flex-direction: column;
     padding: 5px;
     width: 500px;
-    /* position: fixed; */
-    left: 900px;
+    /* width: 35%; */
+    position: fixed;
+    /* left: 900px; */
+    left: 65%;
 }
 
 .profilepic {
