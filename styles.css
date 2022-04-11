@@ -2,33 +2,57 @@ body * {
     box-sizing: border-box;
 }
 
+/* Define the rules of the entire body */
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
-    display: grid;
-    grid-template-areas: "banner banner"
-                         "stories recs";
 }
 
-nav {
-    grid-area: banner;
-}
+/* Define the link colors functionality */
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
 
-section {
-    grid-area: stories;
-}
-
-aside {
-    grid-area: recs;
-}
-
-nav, nav * {
-    border: solid 1px black;
-}
-
-nav {
+/* Define the rules for the entire header */
+.header, .header * {
+    /* border: solid 1px black; */
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+}
+
+/* Define the outer padding of the navigation bar */
+.navigationbar {
+    width: 100%;
+    min-width: 300px;
+    padding: 10px;
+}
+
+/* Define the rules for the left component of the header */
+.leftsection {
+    flex: 1 0 127px;
+    font-size: x-large;
+    font-weight: bold;
+    align-items: center;
+}
+
+/* Define a different color for the logo link */
+.leftsection a:link {
+    color: purple;
+}
+
+/* Define the size of the box for the items in the right component of the header */
+.rightsection {
+    flex: 1 0 127px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Define the padding around the right component items
+    and only have the width be the size of the text inside */
+.username, .signout {
+    padding: 5px;
+    width: max-content;
 }
 
 nav h1 {
