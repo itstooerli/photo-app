@@ -6,6 +6,7 @@ body * {
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
+    background-color: #f2f2f2;
 }
 
 /* Define the link colors functionality */
@@ -28,7 +29,7 @@ a:active { text-decoration: none; }
     min-width: 300px;
     padding: 10px;
     background-color: white;
-    border-bottom: solid 1px black;
+    /* border-bottom: solid 1px black; */
 }
 
 /* Define the rules for the left component of the header */
@@ -57,45 +58,42 @@ a:active { text-decoration: none; }
 }
 
 .mainapp * {
-    border: solid 1px black;
-    display: flex;
-    width: 100%;
+    /* border: solid 1px black; */
 }
 
 .mainapp {
-    /* display: flex; */
-    border: solid 1px black;
     width: 100%;
-    margin-top: 75px;
+    margin-top: 50px;
 }
 
 .mainsection {
-    padding: 10px;
-    background-color: #f2f2f2;
+    display: flex;
     width: 100%;
+    padding: 10px;
+    /* background-color: #f2f2f2; */
 }
 
 .leftapp {
-    /* max-width: 800px; */
-    margin-right: 15px;
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    /* background-color: #f2f2f2; */
     width: 65%;
-    flex-direction: column;
-    /* position: relative; */
-}
-
-ul {
-    padding-inline-start: 5px;
-}
-
-.astory {
-    flex-direction: column;
     align-items: center;
 }
 
-.astorylist {
-    width: min-content;
-    margin: 10px;
+.stories {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: 600px;
+}
+
+.astory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
 }
 
 .astoryname {
@@ -109,10 +107,15 @@ ul {
 }
 
 .card {
+    display: flex;
     flex-direction: column;
+    width: 600px;
+    margin-top: 20px;
+    background-color: white;
 }
 
 .cardtop {
+    display: flex;
     justify-content: space-between;
 }
 
@@ -123,22 +126,22 @@ ul {
 }
 
 .cardimage {
-    padding: 5px;
-    /* max-height: 500px; */
+    display: flex;
+    justify-content: center;
+    /* padding: 5px; */
 }
 
-/* .postpic {
-    display: block;
-    max-height: 500px;
-    width: auto;
-    height: auto;
-} */
+.postpic {
+    max-width: 600px;
+}
 
 .cardreacts {
+    display: flex;
     flex-direction: column;
 }
 
 .cardiconsection {
+    display: flex;
     font-size: x-large;
     width: 100%;
     justify-content: space-between;
@@ -146,6 +149,7 @@ ul {
 }
 
 .cardicons {
+    display: flex;
     width: min-content;
     justify-content: space-between;
     padding: 5px;
@@ -163,8 +167,8 @@ ul {
 }
 
 .cardcaptionsection, .cardcommentsection {
-    margin: 5px;
-    padding: 5px;
+    margin: 0px 5px;
+    padding: 0px 5px;
     padding-right: 10px;
     flex-direction: column;
 }
@@ -181,7 +185,7 @@ ul {
     margin-block-start: 5px;
     margin-block-end: 0px;
     display: block;
-    padding: 2px;
+    /* padding: 2px; */
 }
 
 .timesincepost {
@@ -191,13 +195,20 @@ ul {
 }
 
 .cardaddcomment {
+    display: flex;
+    flex-direction: row;
     margin: 5px;
 }
 
 .addnewcomment {
+    display: flex;
     margin: 5px;
     padding: 5px;
-    width: 90%;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
 }
 
 .addnewcomment i {
@@ -207,16 +218,18 @@ ul {
 }
 
 .postbutton {
+    display: flex;
     width: min-content;
     align-items: center;
     margin: 10px;
 }
 
 .rightapp {
+    display: flex;
     flex-direction: column;
     padding: 5px;
-    width: 500px;
-    /* width: 35%; */
+    /* width: 500px; */
+    width: 35%;
     position: fixed;
     /* left: 900px; */
     left: 65%;
@@ -229,8 +242,14 @@ ul {
 }
 
 .user {
+    display: flex;
     align-items: center;
     padding: 5px;
+}
+
+.user .profilepic {
+    width: 80px;
+    height: 80px;
 }
 
 .user h1 {
@@ -239,6 +258,7 @@ ul {
 }
 
 .sugs {
+    display: flex;
     flex-direction: column;
 }
 
@@ -253,13 +273,14 @@ ul {
 }
 
 .asuggestion {
+    display: flex;
     align-items: center;
 }
 
 .asuggestionmid {
     margin-left: 5px;
-    flex-direction: column;
-    max-width: 200px;
+    width: 150px;
+    /* max-width: 300px; */
 }
 
 .asuggestionname, .asfy {
@@ -269,6 +290,9 @@ ul {
 .asuggestionname {
     font-weight: bold;
     font-size: medium;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .asfy {
@@ -278,4 +302,9 @@ ul {
 .follow {
     width: min-content;
     padding: 2px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .mainsection {justify-content: center;}
+    .rightapp {display: none;}
 }
