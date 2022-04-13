@@ -5,7 +5,12 @@
         <title>PhotoApp</title>
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-        <meta name="viewport" content="width=600px, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <meta name="viewport" content="width=600px, initial-scale=1.0"> -->
     </head>
 
     <body>
@@ -13,9 +18,7 @@
             <div class="navigationbar">
                 <div class="leftheader">
                     <a href="/">
-                        <div>
-                            Photo App
-                        </div>
+                        <h4 class="logo"> Photo App </h4>
                     </a>
                 </div>
 
@@ -73,9 +76,7 @@
                     <div class="posts">
                         <article class="card">
                             <div class="cardtop">
-                                <div class="postuser">
-                                    RickAndMorty
-                                </div>
+                                <h4 class="postuser"> RickAndMorty </h4>
                                 <div class="moreicon">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </div>
@@ -105,7 +106,6 @@
 
                                 <div class="cardcaptionsection">
                                     <p class="comment"> <span class="commentspan", style="font-weight: bold; width: auto; padding-right: 8px;">RickAndMorty</span>
-                                        pickle pickle pickle pickle pickle pickle pickle pickle pickle pickle pickle 
                                         pickle pickle pickle pickle pickle pickle pickle pickle pickle pickle pickle 
                                         pickle pickle pickle pickle pickle pickle pickle pickle pickle pickle pickle 
                                         <span class="commentspan">... <a href="/">more</a></span>
@@ -140,9 +140,9 @@
 
                         <article class="card">
                             <div class="cardtop">
-                                <div class="postuser">
+                                <h4 class="postuser">
                                     Sopranos
-                                </div>
+                                </h4>
                                 <div class="moreicon">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </div>
@@ -172,9 +172,9 @@
 
                                 <div class="cardcaptionsection">
                                     <p class="comment"> <span class="commentspan", style="font-weight: bold; width: auto; padding-right: 8px;">Sopranos</span>
-                                        mob mob mob mob mob mob then mob mob mob mob. text text 
-                                        text text text text text text text text text text text text 
-                                        text text text text mob mob mob mob mob mob mob mob
+                                        mob mob mob mob mob mob then mob mob mob mob.
+                                        text text text text text text text text text 
+                                        text text mob mob mob mob mob mob mob mob
                                         mob mob mob mob <span class="commentspan">... <a href="/">more</a></span>
                                     </p>
                                 </div>
@@ -207,9 +207,9 @@
 
                         <article class="card">
                             <div class="cardtop">
-                                <div class="postuser">
+                                <h4 class="postuser">
                                     GameOfThrones
-                                </div>
+                                </h4>
                                 <div class="moreicon">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </div>
@@ -271,9 +271,9 @@
 
                         <article class="card">
                             <div class="cardtop">
-                                <div class="postuser">
+                                <h4 class="postuser">
                                     Westworld
-                                </div>
+                                </h4>
                                 <div class="moreicon">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </div>
@@ -414,3 +414,7 @@
         </main>
     </body>
 </html>
+
+<!-- You can add a new text box that allows the user to specify the alt-text for an image.
+When the user submits the alt-text, you can use imageObject.alt = text to set the alt-text
+to the user specified text. -->
