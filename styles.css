@@ -23,11 +23,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Define the rules for the entire header */
-.header, .header * {
-    /* border: solid 1px black; */
-    /* display: flex; */
-    /* width: 100%; */
-}
+/* .header, .header * {
+    border: solid 1px black;
+} */
 
 .header {
     display: flex;
@@ -81,9 +79,9 @@ h1, h2, h3, h4, h5, h6 {
     width: max-content;
 }
 
-.mainapp * {
-    /* border: solid 1px black; */
-}
+/* .mainapp * {
+    border: solid 1px black;
+} */
 
 .mainapp {
     width: 100%;
