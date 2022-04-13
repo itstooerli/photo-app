@@ -162,7 +162,6 @@ h1, h2, h3, h4, h5, h6 {
 .cardimage {
     display: flex;
     justify-content: center;
-    /* padding: 5px; */
 }
 
 .postpic {
@@ -205,7 +204,6 @@ h1, h2, h3, h4, h5, h6 {
 .cardcaptionsection, .cardcommentsection {
     margin: 0px 10px;
     padding: 0px 10px;
-    /* padding-right: 10px; */
     flex-direction: column;
 }
 
@@ -345,12 +343,10 @@ h1, h2, h3, h4, h5, h6 {
 @media only screen and (max-width: 1000px) {
     .body {width: 100%;}
     .header {width: 100% }
-    .mainsection { 
-        justify-content:space-around;
-    }
+    .mainsection { justify-content:space-around; }
     .rightapp {display: none;}
     /* .leftapp {width: 100%;} */
-    .stories {justify-content: flex-start;}
+    /* .stories {justify-content: flex-start;} */
     .card {width: 100%;}
     .stories {width: 100%;}
     .postpic {width: 100%;}
@@ -358,5 +354,4 @@ h1, h2, h3, h4, h5, h6 {
 
 @media only screen and (max-width: 750px) {
     .leftapp {width: 100%;}
-    /* .leftapp {align-items: stretch;} */
 }
