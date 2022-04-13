@@ -150,13 +150,20 @@ h1, h2, h3, h4, h5, h6 {
 .cardtop {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 5px;
 }
 
 .postuser, .moreicon {
     width: min-content;
     margin: 10px;
+}
+
+.btn {
+    border: none;
+    background-color: transparent;
     font-size: large;
+    cursor: pointer;
 }
 
 .cardimage {
@@ -175,7 +182,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .cardiconsection {
     display: flex;
-    font-size: x-large;
+    /* font-size: x-large; */
     width: 100%;
     justify-content: space-between;
     padding: 5px;
@@ -190,7 +197,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cardicons * {
-    padding: 5px;
+    font-size: x-large;
 }
 
 .cardnumlikes {
@@ -240,6 +247,10 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px;
     padding: 5px;
     width: 100%;
+}
+
+.addnewcomment .btn {
+    padding-left: 0px;
 }
 
 .input {
