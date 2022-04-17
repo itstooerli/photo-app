@@ -1,0 +1,27 @@
+<div class="user">
+    <img class="profilepic" src="{{ user.get('profile_url') }}">
+    <h1>
+        {{ user.get('username') }}
+    </h1>
+</div>
+
+<div class="sugs">
+    <div class="suggestionheader">
+        Suggestions for you
+    </div>
+
+    {% for suggestion in suggestions %}
+        <div class="asuggestion">
+            <img class="profilepic" src="{{ suggestion.get('profile_url') }}"/>
+            <div class="asuggestionmid">
+                <div class="asuggestionname">
+                    {{ suggestion.get('username') }}
+                </div>
+                <div class="asfy">
+                    suggested for you
+                </div>
+            </div>
+            <div class="follow"><a href="#follow">follow</a></div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,76 @@
+<div class="posts">
+    {% for post in posts %}
+        <article class="card">
+            <div class="cardtop">
+                <h3 class="postuser">
+                    {{ post.get('user').get('username') }}
+                </h3>
+
+                <div class="moreicon">
+                    <button class="btn"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+            </div>
+
+            <div class="cardimage">
+                <img class="postpic" src="{{ post.get('image_url') }}">
+            </div>
+
+            <div class="cardreacts">
+                <div class="cardiconsection">
+                    <div class="cardicons">
+                        <button class="btn"><i class="far fa-heart"></i></button>
+                        <button class="btn"><i class="far fa-comment"></i></button>
+                        <button class="btn"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                    <div class="cardicons">
+                        <button class="btn"><i class="far fa-bookmark"></i></button>
+                    </div>
+                </div>
+
+                <div class="cardlikessection">
+                    <div class="cardnumlikes">
+                        {% if post.get('likes') == 1 %} 
+                            {{post.get('likes')}} like 
+                        {% else %}
+                            {{ post.get('likes') }} likes
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="cardcaptionsection">
+                    <p class="comment">
+                        <span class="commentspan", style="font-weight: bold; width: auto; padding-right: 8px;">{{ post.get('user').get('username') }}</span>
+                        {{ post.get('title') }}
+                    </p>
+                </div>
+                
+                <div class="cardcommentsection">
+                    {% if post.get('comments')|length == 1 %}
+                        <p class="comment"> <span class="commentspan", style="font-weight: bold; width: auto; padding-right: 8px;">{{ post.get('comments')[0].get('user').get('username') }}</span>
+                            {{ post.get('comments')[0].get('text') }}
+                        </p>
+                    {% elif post.get('comments')|length > 1 %}
+                        <a href="#morecomments">View all {{ post.get('comments')|length }} comments</a>
+                        <p class="comment"> <span class="commentspan", style="font-weight: bold; width: auto; padding-right: 8px;">{{ post.get('comments')[0].get('user').get('username') }}</span>
+                            {{ post.get('comments')[0].get('text') }}
+                        </p>
+                    {% endif %}
+
+                    <div class="timesincepost">
+                        {{ post.get('display_time') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="cardaddcomment">
+                <div class="addnewcomment">
+                    <button class="btn"><i class="far fa-smile"></i></button>
+                    <textarea type="text" class="input" placeholder="Add a comment..."></textarea>
+                </div>
+                <div class="postbutton">
+                    <a href="/">Post</a>
+                </div>  
+            </div>
+        </article>
+    {% endfor %}
+</div>
