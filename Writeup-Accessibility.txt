@@ -1,0 +1,26 @@
+(1) Corrections Made (Initial: 78 Errors, 22 Contrast Errors, 24 Alerts)
+-- Added alt text to stories images
+-- Added alt text to suggestions images
+-- Added alt text to post images
+-- Added aria label to comment box
+-- Updated temporary link for post to a different link to avoid redundant link
+-- Changed all text color instances of gray to #5b616b;
+-- Added aria label to like button
+-- Added aria label to comment button
+-- Added aria label to share button
+-- Added aria label to favorite button
+-- Added aria label to more options button
+-- Added aria label to emoji button
+
+(2) No, not all accessibility problems are solvable. Photos could have contrast issues
+and could still have ambiguously worded alt text and/or captions.
+
+(3) Yes, the website should be usable without CSS. Image alt text and button labels are 
+still applied in the HTML. All text stylings should be removed and defaulted to the 
+original black text. The website certainly won't look as nice, but it should still functional.
+The only concern may be the font sizes are too small, but the HTML default should be
+sufficient for most cases.
+
+(4) Yes, the website should still be usable without the images since the text stylings should still
+be accessible, the buttons and link should/will work, all users are accommodate with their username,
+and users can still react to captions. The website would certainly lose its purpose without images, though.
