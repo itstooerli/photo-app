@@ -173,6 +173,7 @@ h1, h2, h3, h4, h5, h6 {
 .postpic {
     max-width: 600px;
     width: 100%;
+    object-fit: contain;
 }
 
 .cardreacts {
