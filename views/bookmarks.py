@@ -10,7 +10,12 @@ class BookmarksListEndpoint(Resource):
     
     def get(self):
         # get all bookmarks owned by the current user
-        return Response(json.dumps([]), mimetype="application/json", status=200)
+        bookmarks = Bookmark.query.filter_by(user_id=self.current_user.id).all()
+        body = []
+        for bookmark in bookmarks:
+            body.append(bookmark.to_dict())
+
+        return Response(json.dumps(body), mimetype="application/json", status=200)
 
     def post(self):
         # create a new "bookmark" based on the data posted in the body 
