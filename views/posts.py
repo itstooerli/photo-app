@@ -16,7 +16,24 @@ class PostListEndpoint(Resource):
     def get(self):
         # get posts created by one of these users:
         # print(get_authorized_user_ids(self.current_user))
-        return Response(json.dumps([]), mimetype="application/json", status=200)
+        args = request.args
+        authorized_users = get_authorized_user_ids(self.current_user)
+
+        # limit defaults to 10, maximum is 50, must be an integer
+        try:
+            limit = min(int(args.get('limit') or 10), 50)
+        except:
+            return Response(json.dumps("Invalid Limit Parameter"), mimetype="application/json", status=400)
+
+        # query for the posts
+        posts = Post.query.filter(Post.user_id.in_(authorized_users)).limit(limit).all()
+
+        # create the response
+        body = []
+        for post in posts:
+            body.append(post.to_dict())
+ 
+        return Response(json.dumps(body), mimetype="application/json", status=200)
 
     def post(self):
         # create a new post based on the data posted in the body 
@@ -44,7 +61,11 @@ class PostDetailEndpoint(Resource):
 
     def get(self, id):
         # get the post based on the id
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+        post = Post.query.get(id)
+        if post:
+            return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
+        else:
+            return Response(json.dumps("404 NOT FOUND"), mimetype="application/json", status=404)
 
 def initialize_routes(api):
     api.add_resource(
