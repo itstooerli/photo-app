@@ -30,7 +30,7 @@ class PostListEndpoint(Resource):
             return Response(json.dumps("Invalid Limit Parameter"), mimetype="application/json", status=400)
 
         # query for the posts
-        posts = Post.query.filter(Post.user_id.in_(authorized_users)).limit(limit).all()
+        posts = Post.query.filter(Post.user_id.in_(authorized_users)).order_by(Post.pub_date.desc()).limit(limit).all()
 
         # create the response
         body = []
