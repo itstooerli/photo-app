@@ -29,7 +29,7 @@ class PostListEndpoint(Resource):
         except:
             return Response(json.dumps("Invalid Limit Parameter"), mimetype="application/json", status=400)
 
-        # query for the posts
+        # query for the posts, modified to sort by earliest post first
         posts = Post.query.filter(Post.user_id.in_(authorized_users)).order_by(Post.pub_date.desc()).limit(limit).all()
 
         # create the response
