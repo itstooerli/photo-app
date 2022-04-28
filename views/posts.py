@@ -16,26 +16,24 @@ class PostListEndpoint(Resource):
     def get(self):
         # get posts created by one of these users:
         # print(get_authorized_user_ids(self.current_user))
+        
+        # limit defaults to 20, maximum is 50, must be an integer
         args = request.args
-        authorized_users = get_authorized_user_ids(self.current_user)
-
-        # limit defaults to 10, maximum is 50, must be an integer
         try:
-            limit = int(args.get('limit') or 10)
+            limit = int(args.get('limit') or 20)
 
             if limit > 50:
-                return Response(json.dumps("Invalid Limit Parameter"), mimetype="application/json", status=400)
+                return Response(json.dumps("Limit cannot exceed 50."), mimetype="application/json", status=400)
 
         except:
-            return Response(json.dumps("Invalid Limit Parameter"), mimetype="application/json", status=400)
+            return Response(json.dumps("Invalid Limit Parameter."), mimetype="application/json", status=400)
 
         # query for the posts, modified to sort by earliest post first
+        authorized_users = get_authorized_user_ids(self.current_user)
         posts = Post.query.filter(Post.user_id.in_(authorized_users)).order_by(Post.pub_date.desc()).limit(limit).all()
 
         # create the response
-        body = []
-        for post in posts:
-            body.append(post.to_dict())
+        body = [post.to_dict() for post in posts]
  
         return Response(json.dumps(body), mimetype="application/json", status=200)
 
@@ -57,9 +55,8 @@ class PostListEndpoint(Resource):
         db.session.add(new_post)
         db.session.commit()
 
-        # print(new_post.id)
-
-        body = Post.query.get(new_post.id).to_dict()
+        # body = Post.query.get(new_post.id).to_dict()
+        body = new_post.to_dict()
 
         return Response(json.dumps(body), mimetype="application/json", status=201)
         
@@ -90,14 +87,14 @@ class PostDetailEndpoint(Resource):
         
         db.session.commit()
 
-        body = Post.query.get(post.id).to_dict()
+        # body = Post.query.get(post.id).to_dict()
+        body = post.to_dict()
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
 
 
     def delete(self, id):
         # delete post where "id"=id
-        
         post = Post.query.get(id)
 
         if not post or post.user_id != self.current_user.id:
@@ -107,15 +104,17 @@ class PostDetailEndpoint(Resource):
         db.session.commit()
 
         body = User.query.get(self.current_user.id).to_dict()
+
         return Response(json.dumps(body), mimetype="application/json", status=200)
 
 
     def get(self, id):
         # get the post based on the id
+        # URL should already check for int representation, otherwise it won't redirect here
         post = Post.query.get(id)
         authorized_users = get_authorized_user_ids(self.current_user)
 
-        if not post or post.user_id != self.current_user.id:
+        if not post or post.user_id not in authorized_users:
             return Response(json.dumps("No valid posts"), mimetype="application/json", status=404)
 
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
