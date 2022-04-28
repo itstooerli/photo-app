@@ -40,7 +40,8 @@ class PostLikesListEndpoint(Resource):
         db.session.add(new_like)
         db.session.commit()
 
-        body = LikePost.query.get(new_like.id).to_dict()
+        # body = LikePost.query.get(new_like.id).to_dict()
+        body = new_like.to_dict()
 
         return Response(json.dumps(body), mimetype="application/json", status=201)
 
@@ -60,6 +61,7 @@ class PostLikesDetailEndpoint(Resource):
 
         LikePost.query.filter_by(id=id).delete()
         db.session.commit()
+        
         return Response(json.dumps("Deleted like " + str(id)), mimetype="application/json", status=200)
 
 

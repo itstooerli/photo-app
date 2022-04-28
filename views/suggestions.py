@@ -16,9 +16,11 @@ class SuggestionsListEndpoint(Resource):
         
         # Limited to any 7 users not already following right now
         suggestions = User.query.filter(~User.id.in_(authorized_users)).limit(7).all()
-        body = []
-        for suggestion in suggestions:
-            body.append(suggestion.to_dict())
+        
+        # body = []
+        # for suggestion in suggestions:
+        #     body.append(suggestion.to_dict())
+        body = [suggestion.to_dict() for suggestion in suggestions]
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
 

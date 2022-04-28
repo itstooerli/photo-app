@@ -15,9 +15,10 @@ class StoriesListEndpoint(Resource):
         authorized_users = get_authorized_user_ids(self.current_user)
         stories = Story.query.filter(Story.user_id.in_(authorized_users)).all()
         
-        body = []
-        for story in stories:
-            body.append(story.to_dict())
+        # body = []
+        # for story in stories:
+        #     body.append(story.to_dict())
+        body = [story.to_dict() for story in stories]
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
 

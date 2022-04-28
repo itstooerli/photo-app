@@ -23,12 +23,12 @@ class CommentListEndpoint(Resource):
             return Response(json.dumps("New comment requires valid post and text."), mimetype="application/json", status=400)
 
         authorized_users = get_authorized_user_ids(self.current_user)
-        requested_post = Post.query.get(args.get('post_id'))
+        requested_post = Post.query.get(post_id)
         if not requested_post or requested_post.user_id not in authorized_users:
             return Response(json.dumps("No valid posts."), mimetype="application/json", status=404)
 
         new_comment = Comment(
-            post_id = args.get('post_id'),
+            post_id = post_id,
             text = args.get('text'),
             user_id = self.current_user.id
         )
@@ -36,7 +36,8 @@ class CommentListEndpoint(Resource):
         db.session.add(new_comment)
         db.session.commit()
 
-        body = Comment.query.get(new_comment.id).to_dict()
+        # body = Comment.query.get(new_comment.id).to_dict()
+        body = new_comment.to_dict()
 
         return Response(json.dumps(body), mimetype="application/json", status=201)
         

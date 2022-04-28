@@ -17,9 +17,12 @@ class FollowerListEndpoint(Resource):
         '''
 
         followers = Following.query.filter_by(following_id=self.current_user.id).all()
-        body = []
-        for follower in followers:
-            body.append(follower.to_dict_follower())
+        
+        # body = []
+        # for follower in followers:
+        #     body.append(follower.to_dict_follower())
+        
+        body = [follower.to_dict_follower() for follower in followers]
             
         return Response(json.dumps(body), mimetype="application/json", status=200)
 

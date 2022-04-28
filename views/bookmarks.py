@@ -12,9 +12,11 @@ class BookmarksListEndpoint(Resource):
     def get(self):
         # get all bookmarks owned by the current user
         bookmarks = Bookmark.query.filter_by(user_id=self.current_user.id).all()
-        body = []
-        for bookmark in bookmarks:
-            body.append(bookmark.to_dict())
+
+        # body = []
+        # for bookmark in bookmarks:
+        #     body.append(bookmark.to_dict())
+        body = [bookmark.to_dict() for bookmark in bookmarks]
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
 
@@ -49,7 +51,8 @@ class BookmarksListEndpoint(Resource):
         db.session.add(new_bookmark)
         db.session.commit()
 
-        body = Bookmark.query.get(new_bookmark.id).to_dict()
+        # body = Bookmark.query.get(new_bookmark.id).to_dict()
+        body = new_bookmark.to_dict()
         return Response(json.dumps(body), mimetype="application/json", status=201)
 
 class BookmarkDetailEndpoint(Resource):

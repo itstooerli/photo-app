@@ -14,9 +14,11 @@ class FollowingListEndpoint(Resource):
     def get(self):
         # return all of the "following" records that the current user is following
         followings = Following.query.filter_by(user_id=self.current_user.id).all()
-        body = []
-        for following in followings:
-            body.append(following.to_dict_following())
+        
+        # body = []
+        # for following in followings:
+        #     body.append(following.to_dict_following())
+        body = [following.to_dict_following() for following in followings]
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
 
@@ -49,7 +51,8 @@ class FollowingListEndpoint(Resource):
         db.session.add(new_following)
         db.session.commit()
 
-        body = Following.query.get(new_following.id).to_dict_following()
+        # body = Following.query.get(new_following.id).to_dict_following()
+        body = new_following.to_dict_following()
 
         return Response(json.dumps(body), mimetype="application/json", status=201)
 
