@@ -40,7 +40,6 @@ class PostListEndpoint(Resource):
     def post(self):
         # create a new post based on the data posted in the body 
         args = request.get_json()
-        # print(args)
 
         if 'image_url' not in args:
             return Response(json.dumps("New post requires image."), mimetype="application/json", status=400)

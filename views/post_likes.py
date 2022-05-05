@@ -12,7 +12,6 @@ class PostLikesListEndpoint(Resource):
     def post(self):
         # create a new "like_post" based on the data posted in the body 
         args = request.get_json()
-        # print(args)
 
         if 'post_id' not in args:
             return Response(json.dumps("New likes require post_id."), mimetype="application/json", status=400)
@@ -52,7 +51,6 @@ class PostLikesDetailEndpoint(Resource):
     
     def delete(self, id):
         # delete "like_post" where "id"=id
-        # print(id)
 
         like = LikePost.query.get(id)
 

@@ -13,9 +13,6 @@ class BookmarksListEndpoint(Resource):
         # get all bookmarks owned by the current user
         bookmarks = Bookmark.query.filter_by(user_id=self.current_user.id).all()
 
-        # body = []
-        # for bookmark in bookmarks:
-        #     body.append(bookmark.to_dict())
         body = [bookmark.to_dict() for bookmark in bookmarks]
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
@@ -23,7 +20,6 @@ class BookmarksListEndpoint(Resource):
     def post(self):
         # create a new "bookmark" based on the data posted in the body 
         args = request.get_json()
-        # print(body)
 
         if 'post_id' not in args:
             return Response(json.dumps("New bookmark requires post."), mimetype="application/json", status=400)
@@ -62,7 +58,6 @@ class BookmarkDetailEndpoint(Resource):
     
     def delete(self, id):
         # delete "bookmark" record where "id"=id
-        # print(id)
 
         bookmark = Bookmark.query.get(id)
 

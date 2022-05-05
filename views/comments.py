@@ -12,7 +12,6 @@ class CommentListEndpoint(Resource):
     def post(self):
         # create a new "Comment" based on the data posted in the body 
         args = request.get_json()
-        # print(args)
 
         if 'post_id' not in args or 'text' not in args:
             return Response(json.dumps("New comment requires valid post and text."), mimetype="application/json", status=400)
@@ -48,7 +47,6 @@ class CommentDetailEndpoint(Resource):
   
     def delete(self, id):
         # delete "Comment" record where "id"=id
-        # print(id)
 
         comment = Comment.query.get(id)
 

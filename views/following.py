@@ -15,9 +15,6 @@ class FollowingListEndpoint(Resource):
         # return all of the "following" records that the current user is following
         followings = Following.query.filter_by(user_id=self.current_user.id).all()
         
-        # body = []
-        # for following in followings:
-        #     body.append(following.to_dict_following())
         body = [following.to_dict_following() for following in followings]
 
         return Response(json.dumps(body), mimetype="application/json", status=200)
@@ -25,7 +22,6 @@ class FollowingListEndpoint(Resource):
     def post(self):
         # create a new "following" record based on the data posted in the body 
         args = request.get_json()
-        # print(args)
 
         if 'user_id' not in args:
             return Response(json.dumps("New following requires user."), mimetype="application/json", status=400)
@@ -62,7 +58,6 @@ class FollowingDetailEndpoint(Resource):
     
     def delete(self, id):
         # delete "following" record where "id"=id
-        # print(id)
 
         following = Following.query.get(id)
 
