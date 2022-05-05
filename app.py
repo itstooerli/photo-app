@@ -37,13 +37,17 @@ def home():
     #    <p>View <a href="/api">REST API Tester</a>.</p>
     #    <p>Feel free to replace this code from HW2</p>
     # '''
-
+    url_root = request.url_root[0:-1]
     return render_template(
         'index.html',
-        user=requests.get('http://127.0.0.1:5000/api/profile/').json(),
-        posts=requests.get('http://127.0.0.1:5000/api/posts/').json(),
-        stories=requests.get('http://127.0.0.1:5000/api/stories/').json(),
-        suggestions=requests.get('http://127.0.0.1:5000/api/suggestions/').json()
+        # user=requests.get('http://127.0.0.1:5000/api/profile/').json(),
+        # posts=requests.get('http://127.0.0.1:5000/api/posts/').json(),
+        # stories=requests.get('http://127.0.0.1:5000/api/stories/').json(),
+        # suggestions=requests.get('http://127.0.0.1:5000/api/suggestions/').json()
+        user=requests.get(url_root + '/api/profile/').json(),
+        posts=requests.get(url_root + '/api/posts/').json(),
+        stories=requests.get(url_root + '/api/stories/').json(),
+        suggestions=requests.get(url_root + '/api/suggestions/').json()
         )
 
 
