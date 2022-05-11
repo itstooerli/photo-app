@@ -33,7 +33,7 @@ class PostListEndpoint(Resource):
         posts = Post.query.filter(Post.user_id.in_(authorized_users)).order_by(Post.pub_date.desc()).limit(limit).all()
 
         # create the response
-        body = [post.to_dict() for post in posts]
+        body = [post.to_dict(user=self.current_user) for post in posts]
  
         return Response(json.dumps(body), mimetype="application/json", status=200)
 
@@ -116,7 +116,7 @@ class PostDetailEndpoint(Resource):
         if not post or post.user_id not in authorized_users:
             return Response(json.dumps("No valid posts"), mimetype="application/json", status=404)
 
-        return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
+        return Response(json.dumps(post.to_dict(user=self.current_user)), mimetype="application/json", status=200)
 
 def initialize_routes(api):
     api.add_resource(
