@@ -8,7 +8,6 @@ import os
 from sqlalchemy import and_
 from models import db, Post, User, Following, ApiNavigator, Story
 from views import initialize_routes, get_authorized_user_ids
-import requests, json
 
 
 app = Flask(__name__)
@@ -32,22 +31,14 @@ initialize_routes(api)
 # Server-side template for the homepage:
 @app.route('/')
 def home():
-  
-    # return '''
-    #    <p>View <a href="/api">REST API Tester</a>.</p>
-    #    <p>Feel free to replace this code from HW2</p>
-    # '''
-    url_root = request.url_root[0:-1]
     return render_template(
-        'index.html',
-        user=requests.get(url_root + '/api/profile/').json(),
-        posts=requests.get(url_root + '/api/posts/').json(),
-        stories=requests.get(url_root + '/api/stories/').json(),
-        suggestions=requests.get(url_root + '/api/suggestions/').json()
-        )
+        'starter-client.html', 
+        user=app.current_user
+    )
 
 
 @app.route('/api')
+@app.route('/api/')
 def api_docs():
     navigator = ApiNavigator(app.current_user)
     return render_template(
