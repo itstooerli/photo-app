@@ -36,7 +36,6 @@ def home():
         user=app.current_user
     )
 
-
 @app.route('/api')
 @app.route('/api/')
 def api_docs():
