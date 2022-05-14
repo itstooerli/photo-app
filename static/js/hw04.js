@@ -49,6 +49,7 @@ const followUser = (userID, elem) => {
         .then(data => {
             console.log(data);
             elem.innerHTML = 'unfollow';
+            elem.setAttribute('aria-label', 'unfollow');
             elem.setAttribute('aria-checked', 'true');
             elem.classList.add('unfollow');
             elem.classList.remove('follow');
@@ -65,6 +66,7 @@ const unfollowUser = (followingID, elem) => {
         .then(data => {
             console.log(data);
             elem.innerHTML = 'follow';
+            elem.setAttribute('aria-label', 'follow');
             elem.setAttribute('aria-checked', 'false');
             elem.classList.add('follow');
             elem.classList.remove('unfollow');
@@ -278,13 +280,20 @@ const post2Html = post => {
             <form class="add-comment">
                 <div class="input-holder">
                     <input
+                        id="${post.id}commentbox"
                         class="comment-textbox"
                         aria-label="Add a comment"
                         placeholder="Add a comment..."
                         value
                     >
                 </div>
-                <button class="link">Post</button>
+                <button 
+                        type="button"
+                        class="link"
+                        data-post-id="${post.id}"
+                        onclick="postComment(event);">
+                        Post
+                </button>
             </form>
         </section>
     `;
@@ -387,6 +396,7 @@ const bookmarkPost = (postID, elem) => {
             console.log(data);
             console.log(elem);
             elem.innerHTML = '<i class="fas fa-bookmark"></i>';
+            elem.setAttribute('aria-label', 'Unsave');
             elem.setAttribute('aria-checked', 'true');
             elem.setAttribute('data-bookmark-id', data.id);
             // redrawPost(postID);
@@ -401,9 +411,36 @@ const unbookmarkPost = (bookmarkID, elem) => {
         .then(data => {
             console.log(data);
             elem.innerHTML = '<i class="far fa-bookmark"></i>';
+            elem.setAttribute('aria-label', 'Save');
             elem.setAttribute('aria-checked', 'false');
             elem.removeAttribute('data-bookmark-id');
             // redrawPost(postID);
+        });
+};
+
+// Post Comment Card Section
+const postComment = ev => {
+    const elem = ev.currentTarget;
+    const postID = elem.dataset.postId;
+    const textbox = document.getElementById(postID + 'commentbox');
+
+    const postData = {
+        "post_id": postID,
+        "text": textbox.value
+    };
+    
+    fetch('/api/comments/', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // textbox.value = '';
+            redrawPost(postID);
         });
 };
 
