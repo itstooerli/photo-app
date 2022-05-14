@@ -90,7 +90,7 @@ main {
 }
 
 #posts {
-    width: 50vw;
+    /* width: 50vw; */ /* new */
 }
 
 .stories {
@@ -104,7 +104,8 @@ main {
     border: solid 1px #dbdbdb;
     margin-bottom: 30px;
     background-color: #fff;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow: auto;
 }
 .stories > div {
     margin-right: 20px;
@@ -145,13 +146,24 @@ main {
     padding: 10px;
     color: #444;
 }
-
+button.like, button.comment, button.share, button.bookmark {
+    padding: 0;
+    font-size: 1em;
+    border-width: 0;
+    background-color: transparent;
+}
 .card .buttons {
     font-size: 1.3em;
     padding: 5px;
+    border-width: 0; /* new */
+    background-color: transparent; /* new */
 }
 .card .buttons i {
     margin-right: 4px;
+}
+
+.fas.fa-heart {
+    color: #cf0c0c;
 }
 
 .card  button.link {
@@ -270,6 +282,9 @@ aside header .pic {
         width: 100vw;
         padding: 0px;
         align-items: center;
+    }
+    #posts{
+        width: default; /* new */
     }
     .card, .stories {
         width: 75vw;

@@ -1,4 +1,4 @@
-// Lab7
+// Lab7 - Suggestions Sidebar
 const user2Html = user => {
     return `
         <img
@@ -15,7 +15,7 @@ const displayUser = () => {
     fetch('/api/profile')
         .then(response => response.json())
         .then(user => {
-            console.log(user);
+            // console.log(user);
             const html = user2Html(user);
             document.querySelector('.user').innerHTML = html;
         });
@@ -82,7 +82,7 @@ const suggestion2Html = user => {
             </div>
             <div>
                 <button
-                    class="follow"
+                    class="link following"
                     aria-label="follow"
                     aria-checked="false"
                     data-user-id="${user.id}"
@@ -98,12 +98,13 @@ const displaySuggestions = () => {
     fetch('/api/suggestions')
         .then(response => response.json())
         .then(users => {
-            console.log(users);
+            // console.log(users);
             const html = users.map(suggestion2Html).join('\n');
             document.querySelector('.suggestion').innerHTML = html;
         });
 };
 
+// Given - Stories Top Bar
 const story2Html = story => {
     return `
         <div>
@@ -112,38 +113,6 @@ const story2Html = story => {
         </div>
     `;
 };
-
-// // from class
-// const post2Html = post => {
-//     return `
-//         <section>
-//             <img src="${ post.thumb_url }" />
-//             <p>${ post.caption }</p>
-//             <button onclick="handleLike(event);">Like</button>
-//             <button onclick="handleBookmark(event);">Bookmark</button>
-//         </section>
-//     `;
-// }
-
-// // from class
-// const displayPosts = () => {
-//     fetch('/api/posts')
-//         .then(response => response.json())
-//         .then(posts => {
-//             const html = posts.map(post2Html).join('\n');
-//             document.querySelector('.posts').innerHTML = html;
-//         })
-// };
-
-// // from class
-// const handleLike = ev => {
-//     console.log("Handle like functionality");
-// };
-
-// // from class
-// const handleBookmark = ev => {
-//     console.log("Handle bookmark functionality");
-// };
 
 // fetch data from your API endpoint:
 const displayStories = () => {
@@ -155,11 +124,294 @@ const displayStories = () => {
         })
 };
 
+// Posts Main Section
+const likes2Html = post => {
+    if (post.likes.length === 1){
+        return `1 like`;
+    }
+    
+    return `${post.likes.length} likes`;
+};
+
+const comments2Html = post => {
+    if (post.comments.length === 0) {
+        return `<p></p>`;
+    }
+    else if (post.comments.length === 1){
+        return `<p>
+                    <strong> ${post.comments[0].user.username} </strong>
+                    ${post.comments[0].text}
+                </p>
+                <p class="timestamp">
+                    ${ post.comments[0].display_time }
+                </p>
+                `;
+    } else {
+        return `<button class="link">
+                    View all ${post.comments.length} comments
+                </button>
+                <p>
+                    <strong> ${post.comments[0].user.username} </strong>
+                    ${post.comments[0].text}
+                </p>
+                <p class="timestamp">
+                    ${ post.comments[0].display_time }
+                </p>
+                `;
+    }
+};
+
+const heartButton2Html = post => {
+    if (post.current_user_like_id){
+        return `
+                <button 
+                role="switch"    
+                aria-label="Unlike"
+                class="like"
+                aria-checked="true"
+                data-post-id="${post.id}"
+                data-like-id="${post.current_user_like_id}"
+                onclick="toggleLike(event);">
+                <i class="fas fa-heart"></i>
+                </button>`;
+    };
+
+    return `
+            <button 
+            role="switch"    
+            aria-label="Like"
+            class="like"
+            aria-checked="false"
+            data-post-id="${post.id}"
+            onclick="toggleLike(event);">
+            <i class="far fa-heart"></i>
+            </button>`;
+};
+
+const bookmarkButton2Html = post => {
+    if (post.current_user_bookmark_id){
+        return `
+                <button
+                role="switch"
+                aria-label="Unsave"
+                class="bookmark"
+                aria-checked="true"
+                data-post-id="${post.id}"
+                data-bookmark-id="${post.current_user_bookmark_id}"
+                onclick="toggleBookmark(event);">
+                <i class="fas fa-bookmark"></i>
+                </button>
+                `;
+    };
+    return `
+            <button
+            role="switch"
+            aria-label="Save"
+            class="bookmark"
+            aria-checked="false"
+            data-post-id="${post.id}"
+            onclick="toggleBookmark(event);">
+            <i class="far fa-bookmark"></i>
+            </button>
+            `;
+};
+
+// from class
+const post2Html = post => {
+    
+    return `
+        <section class="card" id="post${post.id}">
+            <div class="header">
+                <h3>
+                    ${post.user.username}
+                </h3>
+
+                <button
+                    aria-label="More options"
+                    class="buttons">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            
+            <img src="${ post.image_url }" alt="${ post.alt_text }"/>
+
+            <div class="info">
+                <div class="buttons">
+                    <div>
+                        ${heartButton2Html(post)}
+                        <button 
+                            aria-label="Comment"
+                            class="comment">
+                            <i class="far fa-comment"></i>
+                        </button>
+                        <button 
+                            aria-label="Share Post" 
+                            class="share">
+                            <i class="far fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div>
+                        ${bookmarkButton2Html(post)}
+                    </div>
+                </div>
+
+                <p class="likes">
+                    <strong>
+                        ${likes2Html(post)}
+                    </strong>
+                <p/>
+                
+                <div class="caption">
+                    <p>
+                        <strong> ${ post.user.username} </strong>
+                        ${ post.caption }
+                    </p>
+                    <p class="timestamp">
+                        ${ post.display_time }
+                    </p>
+                </div>
+
+                <div class="comments">
+                    ${comments2Html(post)}
+                </div>
+            </div>
+            <form class="add-comment">
+                <div class="input-holder">
+                    <input
+                        class="comment-textbox"
+                        aria-label="Add a comment"
+                        placeholder="Add a comment..."
+                        value
+                    >
+                </div>
+                <button class="link">Post</button>
+            </form>
+        </section>
+    `;
+}
+
+// from class
+const displayPosts = () => {
+    fetch('/api/posts/?limit=10')
+        .then(response => response.json())
+        .then(posts => {
+            // console.log(posts);
+            const html = posts.map(post2Html).join('\n');
+            document.querySelector('#posts').innerHTML = html;
+        })
+};
+
+// To redraw one post
+const redrawPost = postID => {
+    fetch(`/api/posts/${postID}`)
+        .then(response => response.json())
+        .then(post => {
+            const html = post2Html(post);
+            document.querySelector(`#post${postID}`).outerHTML = html;
+        })
+};
+
+// Likes Card Section
+const toggleLike = ev => {
+    
+    const elem = ev.currentTarget;
+
+    if (elem.getAttribute('aria-checked') === 'false'){
+        likePost(elem.dataset.postId);
+    } else {
+        unlikePost(elem.dataset.likeId, elem.dataset.postId);
+    }
+};
+
+const likePost = (postID) => {
+    const postData = {
+        "post_id": postID
+    };
+
+    fetch('/api/posts/likes/', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // elem.innerHTML = '<i class="fas fa-heart"></i>';
+            // elem.setAttribute('aria-checked', 'true');
+            // elem.setAttribute('data-like-id', data.id);
+            redrawPost(postID);
+        });
+};
+
+const unlikePost = (likeID, postID) => {
+    fetch(`/api/posts/likes/${likeID}`, {
+        method: "DELETE"
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // elem.innerHTML = '<i class="far fa-heart"></i>';
+            // elem.setAttribute('aria-checked', 'false');
+            // elem.removeAttribute('data-like-id');
+            redrawPost(postID);
+        });
+};
+
+// Bookmark Card Section
+const toggleBookmark = ev => {
+    const elem = ev.currentTarget;
+
+    if (elem.getAttribute('aria-checked') === 'false'){
+        bookmarkPost(elem.dataset.postId, elem);
+    } else {
+        unbookmarkPost(elem.dataset.bookmarkId, elem);
+    }
+};
+
+const bookmarkPost = (postID, elem) => {
+    const postData = {
+        "post_id": postID
+    };
+
+    fetch('/api/bookmarks/', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(elem);
+            elem.innerHTML = '<i class="fas fa-bookmark"></i>';
+            elem.setAttribute('aria-checked', 'true');
+            elem.setAttribute('data-bookmark-id', data.id);
+            // redrawPost(postID);
+        });
+};
+
+const unbookmarkPost = (bookmarkID, elem) => {
+    fetch(`/api/bookmarks/${bookmarkID}`, {
+        method: "DELETE"
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            elem.innerHTML = '<i class="far fa-bookmark"></i>';
+            elem.setAttribute('aria-checked', 'false');
+            elem.removeAttribute('data-bookmark-id');
+            // redrawPost(postID);
+        });
+};
+
 const initPage = () => {
     displayStories();
     displayUser();
     displaySuggestions();
-    // displayPosts(); // from class
+    displayPosts(); // from class
 };
 
 // invoke init page to display stories:
