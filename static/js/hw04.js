@@ -1,3 +1,30 @@
+/* Accessibility Questions
+1. Accessibility is important for all users that might visit a site. Primarily we
+make an effort to ensure individuals with disabilities, e.g. color-blindness or
+dyslexia, can still use our site in a similar capacity to every other individual.
+On the other hand, it's also helpful for specific situations, such as when viewing
+with smaller viewports, viewing in bright sunlight, or using without a mouse. It's
+important to ensure equal access and equal opportunity on the Web.
+
+In my opinion, Instagram can be more accessible by improving color contrast. 
+When using WAVE on the page, in addition to the color contrast, it appears Instgram
+can leverage more labels as well. Other considerations might be a dyslexia or 
+color-blind mode, among others.
+
+2. Beyond what was suggested from the HW itself, I primarily used W3C sites such as
+- https://www.w3.org/WAI/fundamentals/accessibility-intro/
+- https://www.w3.org/WAI/tips/developing/
+
+3. The most challenging part is remembering to do it. Otherwise, when writing up
+a specific image, for example, it is not particularly difficult to add alt-text
+or a label, particularly if it's dynamically pulled from the server. In addition,
+color-contrast is one of the more challenging parts if most colors are easy to
+read for you. Accesibility definitly improves usability for all users because, 
+for example, allowing users to tab and spacebar can always be situationally
+convenient. It also may provide further context if individuals do read labels.
+*/
+
+
 // Lab7 - Suggestions Sidebar
 const user2Html = user => {
     return `
@@ -149,7 +176,7 @@ const comments2Html = post => {
                 </p>
                 `;
     } else {
-        return `<button class="link">
+        return `<button class="link" onclick="openModal(event);" data-post-id="${post.id}">
                     View all ${post.comments.length} comments
                 </button>
                 <p>
@@ -243,7 +270,9 @@ const post2Html = post => {
                         ${heartButton2Html(post)}
                         <button 
                             aria-label="Comment"
-                            class="comment">
+                            class="comment"
+                            onclick="jumpToComment(event)"
+                            data-post-id=${post.id}>
                             <i class="far fa-comment"></i>
                         </button>
                         <button 
@@ -280,7 +309,7 @@ const post2Html = post => {
             <form class="add-comment">
                 <div class="input-holder">
                     <input
-                        id="${post.id}commentbox"
+                        id="commentbox${post.id}"
                         class="comment-textbox"
                         aria-label="Add a comment"
                         placeholder="Add a comment..."
@@ -394,7 +423,6 @@ const bookmarkPost = (postID, elem) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log(elem);
             elem.innerHTML = '<i class="fas fa-bookmark"></i>';
             elem.setAttribute('aria-label', 'Unsave');
             elem.setAttribute('aria-checked', 'true');
@@ -422,7 +450,7 @@ const unbookmarkPost = (bookmarkID, elem) => {
 const postComment = ev => {
     const elem = ev.currentTarget;
     const postID = elem.dataset.postId;
-    const textbox = document.getElementById(postID + 'commentbox');
+    const textbox = document.querySelector(`#commentbox${postID}`);
 
     const postData = {
         "post_id": postID,
@@ -441,8 +469,74 @@ const postComment = ev => {
             console.log(data);
             // textbox.value = '';
             redrawPost(postID);
+            document.querySelector(`#commentbox${postID}`).focus(); // This won't work when redrawing.
         });
 };
+
+const jumpToComment = ev => {
+    const postID = ev.currentTarget.dataset.postId;
+    document.querySelector(`#commentbox${postID}`).focus();
+}
+
+// Modal Code
+const modal2Html = post => {
+    return `
+            <div class="modal-bg">
+                <button class="close" aria-label="Close Button" onclick="closeModal();">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal" role="dialog" aria-live="assertive">
+                    <div class="featured-image" style="background-image: url(${post.image_url};)"></div>
+                    <div class="container">
+                        <h3>
+                            <img
+                            class="pic"
+                            src="${post.user.thumb_url}"
+                            alt="${post.user.username} profile picture">    
+                            ${post.user.username}
+                        </h3>
+                        <div class="body">
+                            ${post.comments.map(aComment2Html).join('\n')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+};
+
+const aComment2Html = comment => {
+    return `
+            <div class="modal-comment">
+                <img class="pic" src="${comment.user.thumb_url}" alt="${comment.user.username} profile picture">
+                <p>
+                    <strong> ${ comment.user.username } </strong>
+                    ${ comment.text }
+                </p>
+                <p class="timestamp">
+                    <strong> ${ comment.display_time } </strong>
+                </p>
+            </div>
+    `;
+}
+
+const openModal = ev => {
+    const postID = ev.currentTarget.dataset.postId;
+    fetch(`/api/posts/${postID}`)
+    .then(response => response.json())
+    .then(post => {
+        const html = modal2Html(post);
+        modalElement = document.querySelector('#modal');
+        modalElement.classList.remove('visuallyhidden');
+        document.querySelector(`#modal`).innerHTML = html;
+        document.querySelector('.close').focus();
+    })
+}
+
+const closeModal = () => {
+    modalElement = document.querySelector('#modal');
+    modalElement.classList.add('visuallyhidden');
+    modalElement.innerHTML = '';
+}
 
 const initPage = () => {
     displayStories();
