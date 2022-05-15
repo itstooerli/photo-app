@@ -1,4 +1,7 @@
-/* Accessibility Questions
+/* 
+Link to Heroku app: https://photo-app-erli-hw04.herokuapp.com/
+
+Accessibility Questions
 1. Accessibility is important for all users that might visit a site. Primarily we
 make an effort to ensure individuals with disabilities, e.g. color-blindness or
 dyslexia, can still use our site in a similar capacity to every other individual.
@@ -166,10 +169,10 @@ const comments2Html = post => {
     if (post.comments.length === 0) {
         return `<p></p>`;
     }
-    else if (post.comments.length === 1){
+    else if ( post.comments.length === 1 ){
         return `<p>
-                    <strong> ${post.comments[0].user.username} </strong>
-                    ${post.comments[0].text}
+                    <strong> ${ post.comments[0].user.username } </strong>
+                    ${ post.comments[0].text }
                 </p>
                 <p class="timestamp">
                     ${ post.comments[0].display_time }
@@ -177,11 +180,11 @@ const comments2Html = post => {
                 `;
     } else {
         return `<button class="link" onclick="openModal(event);" data-post-id="${post.id}">
-                    View all ${post.comments.length} comments
+                    View all ${ post.comments.length } comments
                 </button>
                 <p>
-                    <strong> ${post.comments[0].user.username} </strong>
-                    ${post.comments[0].text}
+                    <strong> ${ post.comments[0].user.username } </strong>
+                    ${ post.comments[0].text }
                 </p>
                 <p class="timestamp">
                     ${ post.comments[0].display_time }
@@ -340,14 +343,20 @@ const displayPosts = () => {
 };
 
 // To redraw one post
-const redrawPost = postID => {
+const redrawPost = (postID, myCallback, domID) => {
     fetch(`/api/posts/${postID}`)
         .then(response => response.json())
         .then(post => {
             const html = post2Html(post);
             document.querySelector(`#post${postID}`).outerHTML = html;
-        })
+            if (myCallback && domID) {myCallback(domID);};
+        });
 };
+
+const refocus = domID => {
+    // document.querySelector(`#commentbox${postID}`).focus();
+    document.querySelector(domID).focus();
+}
 
 // Likes Card Section
 const toggleLike = ev => {
@@ -376,10 +385,7 @@ const likePost = (postID) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // elem.innerHTML = '<i class="fas fa-heart"></i>';
-            // elem.setAttribute('aria-checked', 'true');
-            // elem.setAttribute('data-like-id', data.id);
-            redrawPost(postID);
+            redrawPost(postID, refocus, `#post${postID} .like`);
         });
 };
 
@@ -390,10 +396,7 @@ const unlikePost = (likeID, postID) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // elem.innerHTML = '<i class="far fa-heart"></i>';
-            // elem.setAttribute('aria-checked', 'false');
-            // elem.removeAttribute('data-like-id');
-            redrawPost(postID);
+            redrawPost(postID, refocus, `#post${postID} .like`);
         });
 };
 
@@ -404,7 +407,7 @@ const toggleBookmark = ev => {
     if (elem.getAttribute('aria-checked') === 'false'){
         bookmarkPost(elem.dataset.postId, elem);
     } else {
-        unbookmarkPost(elem.dataset.bookmarkId, elem);
+        unbookmarkPost(elem.dataset.bookmarkId, elem.dataset.postId, elem);
     }
 };
 
@@ -428,10 +431,11 @@ const bookmarkPost = (postID, elem) => {
             elem.setAttribute('aria-checked', 'true');
             elem.setAttribute('data-bookmark-id', data.id);
             // redrawPost(postID);
+            document.querySelector(`#post${postID} .bookmark`).focus();
         });
 };
 
-const unbookmarkPost = (bookmarkID, elem) => {
+const unbookmarkPost = (bookmarkID, postID, elem) => {
     fetch(`/api/bookmarks/${bookmarkID}`, {
         method: "DELETE"
     })
@@ -443,6 +447,7 @@ const unbookmarkPost = (bookmarkID, elem) => {
             elem.setAttribute('aria-checked', 'false');
             elem.removeAttribute('data-bookmark-id');
             // redrawPost(postID);
+            document.querySelector(`#post${postID} .bookmark`).focus();
         });
 };
 
@@ -468,8 +473,8 @@ const postComment = ev => {
         .then(data => {
             console.log(data);
             // textbox.value = '';
-            redrawPost(postID);
-            document.querySelector(`#commentbox${postID}`).focus(); // This won't work when redrawing.
+            redrawPost(postID, refocus, `#commentbox${postID}`);
+            // document.querySelector(`#commentbox${postID}`).focus(); // This won't work when redrawing.
         });
 };
 
