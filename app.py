@@ -51,7 +51,7 @@ initialize_routes(api)
 
 # Server-side template for the homepage:
 @app.route('/')
-#@decorators.jwt_or_login
+@decorators.jwt_or_login
 def home():
     return render_template(
         'starter-client.html', 
@@ -60,7 +60,7 @@ def home():
 
 @app.route('/api')
 @app.route('/api/')
-#@decorators.jwt_or_login
+@decorators.jwt_or_login
 def api_docs():
     access_token = request.cookies.get('access_token_cookie')
     csrf = request.cookies.get('csrf_access_token')
