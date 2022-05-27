@@ -72,6 +72,7 @@ const followUser = (userID, elem) => {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF_TOKEN': getCookie('csrf_access_token'),
             },
             body: JSON.stringify(postData)
     })
@@ -90,7 +91,11 @@ const followUser = (userID, elem) => {
 
 const unfollowUser = (followingID, elem) => {
     fetch(`/api/following/${followingID}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF_TOKEN': getCookie('csrf_access_token'),
+        },
     })
         .then(response => response.json())
         .then(data => {
@@ -379,6 +384,7 @@ const likePost = (postID) => {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF_TOKEN': getCookie('csrf_access_token'),
             },
             body: JSON.stringify(postData)
     })
@@ -391,7 +397,11 @@ const likePost = (postID) => {
 
 const unlikePost = (likeID, postID) => {
     fetch(`/api/posts/likes/${likeID}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF_TOKEN': getCookie('csrf_access_token'),
+        },
     })
         .then(response => response.json())
         .then(data => {
@@ -420,6 +430,7 @@ const bookmarkPost = (postID, elem) => {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF_TOKEN': getCookie('csrf_access_token'),
             },
             body: JSON.stringify(postData)
     })
@@ -437,7 +448,11 @@ const bookmarkPost = (postID, elem) => {
 
 const unbookmarkPost = (bookmarkID, postID, elem) => {
     fetch(`/api/bookmarks/${bookmarkID}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF_TOKEN': getCookie('csrf_access_token'),
+        },
     })
         .then(response => response.json())
         .then(data => {
@@ -466,6 +481,7 @@ const postComment = ev => {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF_TOKEN': getCookie('csrf_access_token'),
         },
         body: JSON.stringify(postData)
     })
@@ -548,6 +564,25 @@ const initPage = () => {
     displayUser();
     displaySuggestions();
     displayPosts(); // from class
+};
+
+// Provided from utilities
+const getCookie = key => {
+    let name = key + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        console.log(c);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 };
 
 // invoke init page to display stories:
