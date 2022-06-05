@@ -5,7 +5,6 @@ class LikeButton extends React.Component {
 
     constructor(props) {
         super(props);
-        // initialization code here
 
         // binding "this":
         this.toggleLike = this.toggleLike.bind(this);
@@ -27,7 +26,6 @@ class LikeButton extends React.Component {
 
     createLike () {
         const url = '/api/posts/likes';
-        // console.log('create like:', url);
 
         const postData = {
             post_id: this.props.postId
@@ -40,17 +38,12 @@ class LikeButton extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            // this needs to trigger a post redraw
-            // console.log(data);
-
-            // this is actually calling the parent's method
             this.props.refreshPost();
         })
     }
 
     removeLike () {
         const url = '/api/posts/likes/' + this.props.likeId;
-        // console.log('remove like:', url);
         
         fetch(url, {
             method: 'DELETE',
@@ -58,9 +51,6 @@ class LikeButton extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            // this needs to trigger a post redraw
-            // console.log(data);
-
             this.props.refreshPost();
         })
     }

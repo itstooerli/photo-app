@@ -5,7 +5,6 @@ class BookmarkButton extends React.Component {
 
     constructor(props) {
         super(props);
-        // initialization code here
 
         // binding "this":
         this.toggleBookmark = this.toggleBookmark.bind(this);
@@ -27,7 +26,6 @@ class BookmarkButton extends React.Component {
 
     createBookmark () {
         const url = '/api/bookmarks';
-        // console.log('create Bookmark:', url);
 
         const postData = {
             post_id: this.props.postId
@@ -41,16 +39,12 @@ class BookmarkButton extends React.Component {
         .then(response => response.json())
         .then(data => {
             // this needs to trigger a post redraw
-            // console.log(data);
-
-            // this is actually calling the parent's method
             this.props.refreshPost();
         })
     }
 
     removeBookmark () {
         const url = '/api/bookmarks/' + this.props.bookmarkId;
-        // console.log('remove Bookmark:', url);
         
         fetch(url, {
             method: 'DELETE',
@@ -58,9 +52,6 @@ class BookmarkButton extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            // this needs to trigger a post redraw
-            // console.log(data);
-
             this.props.refreshPost();
         })
     }

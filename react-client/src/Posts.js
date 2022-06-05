@@ -9,7 +9,6 @@ class Posts extends React.Component {
         this.state = {
             posts: []
         }
-        // initialization code here
 
         this.getPostsFromServer()
     }
@@ -20,7 +19,6 @@ class Posts extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
             this.setState({
                 posts: data
             })
