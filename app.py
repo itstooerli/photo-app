@@ -61,7 +61,7 @@ initialize_routes(api)
 
 # Server-side template for the homepage:
 @app.route('/')
-# @decorators.jwt_or_login
+@decorators.jwt_or_login
 def home():
     # https://medium.com/swlh/how-to-deploy-a-react-python-flask-project-on-heroku-edb99309311
     return send_from_directory(app.root_path + '/react-client/build', 'public/index.html', user=flask_jwt_extended.current_user)
