@@ -69,7 +69,7 @@ initialize_routes(api)
 #     )
 def home():
     # https://medium.com/swlh/how-to-deploy-a-react-python-flask-project-on-heroku-edb99309311
-    return send_from_directory(app.root_path + '/react-client/build', 'index.html')
+    return send_from_directory(app.root_path + '/react-client/build', 'index.html', user=flask_jwt_extended.current_user)
 
 
 @app.route('/api')
