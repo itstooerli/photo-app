@@ -1,0 +1,14 @@
+Were React's compilation warning/error messsages helpful?
+-- Yes.
+
+Did React's compilation warning/error messages prompt you to consider making your site more accessible?
+-- Sure. It more suggested me to clean up my code better.
+
+Did you consider conducting accessibility testing on your lab assignment? Why or why not?
+-- Sure, I considered it. However, I was more focused on learning React than accessibility honestly.
+
+If you tested your site for accessibliity and found issues, were you able to solve them?
+What did you do to try to solve them?
+What stopped you from successfully resolving or trying to resolve the issues?
+-- I used the WAVE extension to check for accessibilty issues.
+-- Most of the issues were alt text and contrast issues, so they were fairly straightforward.
