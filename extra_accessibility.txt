@@ -1,3 +1,5 @@
+Extra Credit: Heroku deployment attempt: https://photo-app-erli-react.herokuapp.com/
+
 Were React's compilation warning/error messsages helpful?
 -- Yes.
 
