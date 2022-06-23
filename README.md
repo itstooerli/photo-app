@@ -23,4 +23,4 @@ Contributors names
 
 ## Acknowledgments
 
-* [Northwestern Spring 2022 Web Development Website - Sarah Van Wart](https://cs396-web-dev.github.io/spring2022/syllabus/)
+* [Northwestern Spring 2022 Web Development Course - Sarah Van Wart](https://cs396-web-dev.github.io/spring2022/syllabus/)
