@@ -45,11 +45,18 @@
             color: #c91111;
             margin-bottom: 10px;
         }
+        .demobar {
+            font-size: x-large;
+            /* background: gray; */
+            background: darkgray;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <!-- Nav Bar still rendered via server-side template -->
     {% include 'includes/navbar.html'  %}
+    <div class="demobar">Hello visitor! Welcome to the login page. You can use the generic login "webdev" and password "password" to bypass this screen. Enjoy!</div>
     <form method="POST" action="/login">
         {% if message %}
             <div class="error">{{ message }}</div>
